@@ -4,6 +4,24 @@ author: Frederic Denker
 date: 25.08.2020
 autosize: true
 
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+<style>
+.reveal .slides section .slideContent ul li{
+    font-size: 20pt;
+}
+</style>
+
+<style>
+.reveal .slides{
+    width: 75% !important;  /* or other width */
+}
+</style>
+
 
 The general data pipeline
 =======================================================
@@ -17,16 +35,17 @@ Loading data
 
 - Get your data to the right working directory (to the data folder we created earlier)
 - R does not natively support Stata files, but there are packages that allow for importing them
-- To install **sjlabelled** use the `install.packages("sjlabelled")` command
+- We install the **sjlabelled** package by executing  `install.packages("sjlabelled")`
 - Now the package is installed but we need to load it into R
-  - This is like starting the a program you have installed
-  - The command for this is `library(sjlabelled)` (note the lack of quotation marks)
+  - The command for this is `library("sjlabelled")`
 
 Actually loading in data
 ========================================================
 ```{r}
 library("sjlabelled")
-income <- read_stata(path = "data/haushaltseinkommen.dta")
+income <- read_stata(
+  path = "data/haushaltseinkommen.dta")
+
 ```
 
 A bit of explanation before we do more with the data:
@@ -51,7 +70,7 @@ Introduction to the different types of data types
 
 Introduction to the different types of data types
 ========================================================
-
+class: small-code
 To find out which type a variable is we can use:
 ```{r}
 class(TRUE)
@@ -90,7 +109,7 @@ More detail on data structures with a lot of examples can be found [here.](https
 
 Explaining Vectors
 ========================================================
-
+class: small-code
 Vectors are homogeneous in nature, which means that it only contains elements of the same data type.
 ```{r}
 # I can write comments with the # symbol
@@ -107,13 +126,13 @@ We will see how to use these Vectors later in this tutorial.
 
 Explaining Data Frames
 ========================================================
-
+class: small-code
 A data frame in R programming is a 2-dimensional array-like structure that also resembles a table,  where each row represents an observation and column contains attributes for an observation, i.e., a variable
 - You can think of it like a excel table. 
 ```{r}
-states = c("Bayern", "Berlin", "Sachsen")
-average_income = c(25000,19000,20000)
-df = data.frame(states,average_income)
+state <- c("Bayern", "Berlin", "Sachsen")
+average_income <- c(25000, 19000, 20000)
+df = data.frame(state, average_income)
 df
 ```
 - The data stored in Data Frames can have numeric, factor and character types.
@@ -122,7 +141,7 @@ df
 Some thoughts for Data Frames
 ========================================================
 
-[This is a very good writeup](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) about Data Frame and how they should be formatted.
+[This is a very good writeup](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) about Data Frames and how they should be formatted.
 
 The general idea is that datasets should follow the tidy data model. In tidy data:
 
@@ -133,15 +152,16 @@ The general idea is that datasets should follow the tidy data model. In tidy dat
 
 3. Each type of observational unit forms a table.
 
-This makes the data much more accessible for later data analyses.
+This makes data much more accessible for later data analyses.
 
 Factors
 ========================================================
+class: small-code
 Used in statistical modeling. They categorize unique values in columns and store them as levels. This is especially useful if there are only a limited number of unique values. 
 
 ```{r}
-data <- c("Male","Female","Male",
-          "Male","Female","Female")
+data <- c("Male", "Female", "Male",
+          "Male", "Female", "Female")
 factor_data <- factor(data)
 
 factor_data
@@ -149,7 +169,7 @@ factor_data
 While we are at it, we should also factor our imported dataset
 
 ```{r}
-income$Location = factor(income$Location)
+income$location <- factor(income$location)
 ```
 
 
@@ -210,7 +230,7 @@ table()
 ========================================================
 The function returns a frequency table. 
 ```{r}
-table(income$Location)
+table(income$location)
 ```
 FYI: you can also create a frequency table on two different variables.
 
@@ -221,24 +241,24 @@ After getting an overview over the data, we may now want to be able to filter th
 
 Data subsetting in base R #1
 ========================================================
-
+class: small-code
 ```{r}
-# This returns all the values from the State column
-income$State
+# This returns all the values from the state column
+income$state
 # We can select specific rows and columns by using the squared brackets
-# dataframe[row,colum]
-income[1,1] # Select the first column and first row
+# dataframe[row,column]
+income[1, 1] # Select the first column and first row
 
 ```
 
 Data subsetting in base R #2
 ========================================================
-
+class: small-code
 ```{r}
 # We can select specific rows and columns by using the squared brackets
-income[1,1:2] # Select the first row and the first to the second column
-# As information this returns: 
-1:4
+income[1, 1:2] # Select the first row and the first to the second column
+# For your information this returns: 
+1:2
 # We can build on that:
 # If we only want to specify either rows or columns we can leave the other side blank
 income[1:4,]
@@ -248,54 +268,105 @@ income[1:4,]
 
 Data subsetting in base R #3
 ========================================================
-
+class: small-code
 ```{r}
 # We can pass it a vector such as # c(1,4,5)
 income[c(1,4,5),]
 # We can also select through named vectors
-income[1:3,c("State","income_2016")]
+income[1:3, c("state","income_2016")]
 
 ```
 
 Data subsetting in base R #4
 ========================================================
-
+class: small-code
 ```{r}
 # We can also do conditional subsetting
 # If we want filter the table to only display all the states over 22400 income
-income[income$income_2016 >22400, ]
+income[income$income_2016 > 22400,]
 # We can then specify that we only want the state names
-income[income$income_2016 >22400, "State"]
+income[income$income_2016 > 22400, "state"]
 
 ```
 
-
-TODO Data subsetting with the tidyverse 
-
-Data plotting
+Data subsetting with dplyr
 ========================================================
 
+ - Some of you might find it easier to work with the packages of the **tidyverse**
+ - We install the package with the `install.packages("tidyverse")` command 
+ - The package for data transformation from the tidyverse is called **dplyr**
+ - It has many useful functions such as `select()`,`slice()`, `filter()` and many more
+ - If you want an overview over all the function of the dplyr package, [this](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf) is a good cheat sheet 
+
+
+
+
+Data subsetting with dplyr #1
+========================================================
+class: small-code
+```{r}
+# We start by importing the library 
+library("tidyverse")
+# This returns all the values from the state column from the income dataframe
+select(income,state)
+
+```
+
+Data subsetting with dplyr #2
+========================================================
+class: small-code
+```{r}
+# If we want subset rows we can use the slice function
+slice(income, 1:3)
+# We can combine this with the select function
+# We apply the slice function to the output of the select statement
+select_output <- select(income,state)
+slice(select_output,1:3)
+# Or we apply the select statement to the output of the slice function
+slice_output <- slice(income, 1:3)
+select(slice_output, state)
+```
+
+
+Data subsetting with dplyr #3
+========================================================
+class: small-code
+```{r}
+# We can pass vectors to both slice and select
+select(income,c(1,3))
+
+slice(income,c(1,3))
+```
+
+Data subsetting with dplyr #4
+========================================================
+class: small-code
+```{r}
+# We can also do conditional subsetting
+# If we want filter the table to only display all the states over 22400 income
+filter(income,income_2016 > 22400)
+# We can then specify that we only want the state names
+filtered_data <- filter(income,income_2016 > 22400)
+select(filtered_data,state)
+
+```
+
+Data plotting #1
+========================================================
+
+R is also a very powerful tool for communicating your results through plots:
 
 ```{r}
+# This creates a histogram
 hist(income$income_2016)
 ```
 
-Data plotting
+
+Data plotting #2
 ========================================================
 
 
 ```{r}
-
-boxplot(income_2016~ Location, data= income)
+boxplot(income_2016 ~ location, data= income)
 ```
 
-
-Data plotting
-========================================================
-
-For plotting we use the `ggplot2` package
-```{r}
-library(ggplot2)
-```
-
-Should we include this?

@@ -4,6 +4,23 @@ author: Frederic Denker
 date: 29.08.2020
 autosize: true
 
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+<style>
+.reveal .slides section .slideContent ul li{
+    font-size: 18pt;
+}
+</style>
+
+<style>
+.reveal .slides{
+    width: 70% !important;  /* or other width */
+}
+</style>
 
 We want to be able to answer the big questions of society
 ========================================================
@@ -15,6 +32,7 @@ We want to be able to answer the big questions of society
  ![image](resources/Deworming picture.PNG)
  
  (Source: Miguel, Edward, and Michael Kremer. 2004. "Worms: Identifying Impacts on Education and Health in the Presence of Treatment Externalities." Econometrica 72 (1): 159-217.)
+ 
 What does this picture mean?
 ========================================================
 
@@ -60,9 +78,14 @@ Using RStudio
   - **Console**
   - **Environment**
   - **Help**
-  - **Source**
+  - **Scripts**
   
-[ADD SCREENSHOT OF RSTUDIO]()
+Using RStudio
+========================================================
+
+![image](resources/RStudio_screenshot.PNG)
+
+
 
 Console
 ========================================================
@@ -84,12 +107,13 @@ hype_level # it's not necessary to use print
 ```
 
 
-Help & Source
+Help & Scripts
 =======================================================
 - **Help**
    - This is where documentation from packages and functions is displayed
    - If we want to know more about a function just write in the console `?print` or `??print`
-- **Source**
+- **Scripts**
+   - This is created when we 
    - This is basically a plain-text editor
    - We record what we do in scripts which are displayed here
 
@@ -102,8 +126,14 @@ Before we jump into programming
 Packages & libraries in R
 =======================================================
 
-[ADD INFO ON INSTALLING AND USING PACKAGES IN R]()
-
+ - There are situations in which "base R" (so just the programming language itself) does not have all the functions we desire.
+ - For these cases we use *packages* that are created by the community and extend the R functionality
+ - We install these packages from the central CRAN directory which hosts most of the packages as follows
+   - `install.packages("package_name")` 
+ - Similar to programs you have installed, we need to start it every time we wish to use it
+  - The command for this is `library(package_name)` 
+ 
+ 
 If you want to know more
 =======================================================
 
@@ -111,4 +141,5 @@ If you want to know more
  - [This blog post](https://www.r-bloggers.com/tutorial-getting-started-with-r-and-rstudio/) might be useful as a resource to give a more detailed introduction to R and RStudio.
  - [This](https://stat545.com/) is a very popular course to learn R and statistics.
  - [This textbook](https://learningstatisticswithr.com/lsr-0.6.pdf) is a good resource as an intro to R and statistics
+ - [This website](https://style.tidyverse.org/index.html) with additional information on how to style your code
  - Many other! Feel free to look for resources that fit your learning strategy
