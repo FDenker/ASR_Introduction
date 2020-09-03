@@ -137,9 +137,10 @@ Packages & libraries in R
 If you want to know more
 =======================================================
 
+These are some of the resource we used:
  - [swirl](https://swirlstats.com/students.html) is a package to learn R within R
  - [This blog post](https://www.r-bloggers.com/tutorial-getting-started-with-r-and-rstudio/) might be useful as a resource to give a more detailed introduction to R and RStudio.
  - [This](https://stat545.com/) is a very popular course to learn R and statistics.
  - [This textbook](https://learningstatisticswithr.com/lsr-0.6.pdf) is a good resource as an intro to R and statistics
  - [This website](https://style.tidyverse.org/index.html) with additional information on how to style your code
- - Many other! Feel free to look for resources that fit your learning strategy
+ - There are many others! Feel free to look for resources that fit your learning strategy

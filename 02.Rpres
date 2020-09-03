@@ -143,7 +143,7 @@ Some thoughts for Data Frames
 
 [This is a very good writeup](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) about Data Frames and how they should be formatted.
 
-The general idea is that datasets should follow the tidy data model. In tidy data:
+The general idea is that datasets should follow the *tidy data model*. In tidy data:
 
 
 1. Each variable forms a column.
